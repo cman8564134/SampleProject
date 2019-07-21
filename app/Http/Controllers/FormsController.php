@@ -4,28 +4,69 @@ namespace App\Http\Controllers;
 
 use App\Form;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 
 class FormsController extends Controller
 {
-    public function submit(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required | email',
-            'password' => 'required'
-        ]);
+    public function submit(Request $request){
 
-        $form = new Form([
-            'email'=>$request->input('email'),
-            'password'=>$request->input('password')
-        ]);
-        $form->save();
+        $this->validateForm($request);
+        $form = new Form();
+        $form->saveForm($request);
+
         return redirect()->route('contact')->with('FormStatus', 'Successfully submitted form!');
     }
 
-    public function getAllForms()
-    {
+    public function getAllForms(){
+
         $form = new Form();
         return $form->getAllForms();
     }
+
+    public function getSpecificForm(Request $request){
+
+        $this->validateForm($request);
+        $form = new Form();
+        $specificForm = $form->getSpecificForm($request);
+        if(count($specificForm)>0){
+            return view('formEdit')->with('SpecificForm', $specificForm );
+        }else {
+            return view('formSearch')->withErrors('No such email exist!');
+        }
+    }
+
+    public function editForm(Request $request){
+        $form = Form::find($request->input('EditFormID'));
+        switch ($request->input('action')) {
+            case 'Edit':
+                $form->email = $request->input('EditFormEmail');
+                $form->save();
+                break;
+
+            case 'SoftDelete':
+                $form->delete();
+                break;
+            case 'HardDelete':
+                $form->forceDelete();
+                break;
+        }
+
+
+        return $this->getAllForms();
+    }
+
+    private function validateForm(Request $request){
+
+        $this->validate($request, [
+            'email' => 'required | email',
+            ]);
+        if (!str_contains(route('formSearch'), $request->path())) {
+            $this->validate($request, ['password' => 'required']);
+        }
+    }
+
+
+
+
 }

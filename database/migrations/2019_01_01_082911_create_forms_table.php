@@ -19,6 +19,7 @@ class CreateFormsTable extends Migration
             $table->mediumText('password');
             $table->string('description')->nullable()->default(null);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

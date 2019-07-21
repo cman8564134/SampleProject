@@ -20,4 +20,7 @@ class PagesController extends Controller
     public function getAboutPage(){
         return view('about');
     }
+    public function getSearchFormPage(){
+        return view('formSearch');
+    }
 }

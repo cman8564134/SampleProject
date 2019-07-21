@@ -21,6 +21,12 @@ Route::get('/form-page', 'PagesController@getFormPage')->name('form');
 
 Route::get('/formslist', 'FormsController@getAllForms')->name('formslist');
 
-Route::group(['prefix' => 'foo'], function (){
-    Route::post('bar', 'FormsController@Submit')->name('formSubmit');
+Route::get('/formssearch', 'PagesController@getSearchFormPage')->name('formssearch');
+
+Route::group(['prefix' => 'form'], function (){
+    Route::post('submit', 'FormsController@Submit')->name('formSubmit');
+
+    Route::post('search','FormsController@getSpecificForm')->name("formSearch");
+
+    Route::post('edit','FormsController@editForm')->name("formEdit");
 });

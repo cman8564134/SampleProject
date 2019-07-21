@@ -9,5 +9,6 @@
         <a class="{{Request::is('about')? 'active':''}} py-2 d-none d-md-inline-block" href="{{route('about')}}">About</a>
         <a class="{{Request::is('form')? 'active':''}} py-2 d-none d-md-inline-block" href="{{route('form')}}">Form</a>
         <a class="{{Request::is('formslist')? 'active':''}} py-2 d-none d-md-inline-block" href="{{route('formslist')}}">Form List</a>
+        <a class="{{Request::is('formssearch')? 'active':''}} py-2 d-none d-md-inline-block" href="{{route('formssearch')}}">Form Search</a>
     </div>
 </nav>
