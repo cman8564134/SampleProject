@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Form;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Account;
+use Carbon\Carbon;
 
 
 class FormsController extends Controller
@@ -64,6 +65,22 @@ class FormsController extends Controller
         if (!str_contains(route('formSearch'), $request->path())) {
             $this->validate($request, ['password' => 'required']);
         }
+    }
+
+    public function addRandomAccount(Request $request){
+
+        $form = Form::find($request->input('EditFormID'));
+        $acc = new Account();
+        $acc->name = "Name:" . $request->input('EditFormEmail');
+        $acc->DateOfBirth = Carbon::now();
+        $form->accounts()->save($acc);
+        return redirect()->route('formslist', []);
+
+    }
+
+    public function getAccount(Request $request){
+        $form = Form::find($request->input('EditFormID'));
+        return $form -> accounts();
     }
 
 

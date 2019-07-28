@@ -14,6 +14,9 @@
             <div class="form-group">
                 <input name="EditFormID" type="hidden" value="{{$TheOnlyForm->id}}">
 
+                <label for="exampleLabel">Account Counts: {{count($TheOnlyForm->accounts)}}</label>
+                <br>
+
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" name="EditFormEmail" aria-describedby="emailHelp" placeholder="Enter email" value="{{$TheOnlyForm->email}}">
 
@@ -27,6 +30,11 @@
             <button type="submit" name="action" class="btn btn-primary" value="Edit">Save</button>
             <button type="submit" name="action" class="btn btn-primary" value="SoftDelete">Soft Delete</button>
             <button type="submit" name="action" class="btn btn-primary" value="HardDelete">Hard Delete</button>
+        </form>
+        <form action="{{route('formAddRandomAccount')}}" method="post">
+            <input name="EditFormID" type="hidden" value="{{$TheOnlyForm->id}}">
+            @csrf
+            <button type="submit" name="action" class="btn btn-primary" >Add Random Account</button>
         </form>
     </div>
     @endif

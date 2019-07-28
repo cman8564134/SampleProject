@@ -8,6 +8,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Email</th>
                 <th scope="col">Password</th>
+                <th scope="col">Account Count</th>
             </tr>
             </thead>
             <tbody>
@@ -16,6 +17,7 @@
                     <th scope="row">{{$f->id}}</th>
                     <td>{{$f->email}}</td>
                     <td>{{$f->password}}</td>
+                    <td>{{count($f->accounts)}}</td>
                 </tr>
             @endforeach
             </tbody>

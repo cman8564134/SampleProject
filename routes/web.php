@@ -29,4 +29,6 @@ Route::group(['prefix' => 'form'], function (){
     Route::post('search','FormsController@getSpecificForm')->name("formSearch");
 
     Route::post('edit','FormsController@editForm')->name("formEdit");
+
+    Route::post('addRandomAccount','FormsController@addRandomAccount')->name("formAddRandomAccount");
 });
