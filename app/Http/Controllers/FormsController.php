@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Form;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Account;
 use Carbon\Carbon;
@@ -31,7 +32,8 @@ class FormsController extends Controller
         $form = new Form();
         $specificForm = $form->getSpecificForm($request);
         if(count($specificForm)>0){
-            return view('formEdit')->with('SpecificForm', $specificForm );
+            $tag = Tag::all();
+            return view('formEdit')->with('SpecificForm', $specificForm )->with('tags',$tag);
         }else {
             return view('formSearch')->withErrors('No such email exist!');
         }
@@ -43,6 +45,13 @@ class FormsController extends Controller
             case 'Edit':
                 $form->email = $request->input('EditFormEmail');
                 $form->save();
+                //Many to many relationship linking through middle table
+                //laravel auto check which to detach and attach
+                $form->tags()->sync($request->input('tags') === null ? [] : $request->input('tags'));
+//                removes all reference in middle table
+//                $form->tags()->detach();
+//                Adds all reference according to the array given
+//                $form->tags()->attach($request->input('tags') === null ? [] : $request->input('tags'));
                 break;
 
             case 'SoftDelete':

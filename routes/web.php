@@ -23,6 +23,8 @@ Route::get('/formslist', 'FormsController@getAllForms')->name('formslist');
 
 Route::get('/formssearch', 'PagesController@getSearchFormPage')->name('formssearch');
 
+Route::get('/tag', 'PagesController@getTagPage')->name('tagCreate');
+
 Route::group(['prefix' => 'form'], function (){
     Route::post('submit', 'FormsController@Submit')->name('formSubmit');
 
@@ -31,4 +33,8 @@ Route::group(['prefix' => 'form'], function (){
     Route::post('edit','FormsController@editForm')->name("formEdit");
 
     Route::post('addRandomAccount','FormsController@addRandomAccount')->name("formAddRandomAccount");
+});
+
+Route::group(['prefix' => 'tag'], function () {
+    Route::post('create', 'TagController@submit')->name('createTag');
 });

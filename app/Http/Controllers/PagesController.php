@@ -23,4 +23,8 @@ class PagesController extends Controller
     public function getSearchFormPage(){
         return view('formSearch');
     }
+
+    public function getTagPage(){
+        return view('tag');
+    }
 }

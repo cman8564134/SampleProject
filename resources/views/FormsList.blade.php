@@ -12,6 +12,8 @@
             </tr>
             </thead>
             <tbody>
+            <!-- links() function is Laravel OOTB function used for pagination via Bootstrap-->
+            {{$Forms->links()}}
             @foreach($Forms as $f)
                 <tr>
                     <th scope="row">{{$f->id}}</th>

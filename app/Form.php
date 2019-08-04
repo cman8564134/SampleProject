@@ -15,7 +15,8 @@ class Form extends Model
     //
     public function getAllForms()
     {
-        $forms = Form::with('accounts')->get();
+        //paginate is used for pagination with the parameter for the values per page
+        $forms = Form::with('accounts')->paginate(2);
         return view('FormsList')->with('Forms', $forms);
     }
 
@@ -37,7 +38,15 @@ class Form extends Model
 
     public function accounts(){
         //one to many relationship
-        //foreign key default is xxx_id but can change it.
         return $this->hasMany('App\Account');
+//        foreign key default is xxx_id but can change it with.
+//        return $this->hasMany('App\Account','account_id');
+    }
+
+    public function tags(){
+        //many to many relationship
+        return $this->belongsToMany('App\Tag')->withTimestamps();
+//        //this is the same as this line because we're only using default values
+//        return $this->belongsToMany('App\Tag','form_tag','form_id','tag_id');
     }
 }

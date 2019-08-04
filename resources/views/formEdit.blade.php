@@ -26,6 +26,12 @@
                 <label for="exampleInputPassword1">Confirm Password</label>
                 <input type="password" class="form-control" name="EditFormConfirmPassword" placeholder="Confirm Password">
 
+                <div class="custom-checkbox">
+                    <label> Tags: </label>
+                @foreach ($tags as $tag)
+                        <input type="checkbox" name="tags[]" value="{{$tag->id}}" {{$TheOnlyForm->tags()->where('tag_id',$tag->id)->first() ? 'checked' : '' }}>{{$tag->Name}}
+                @endforeach
+                </div>
             </div>
             <button type="submit" name="action" class="btn btn-primary" value="Edit">Save</button>
             <button type="submit" name="action" class="btn btn-primary" value="SoftDelete">Soft Delete</button>
